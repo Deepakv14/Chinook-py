@@ -50,6 +50,6 @@ llm = LLMFactory.create(
     model="gemini-2.5-flash"
 )    
 
-response = llm.generate_text("Who won FIFA last edition??")
-
+# response = llm.generate_text("Who won FIFA last edition?? ")
+response = llm.generate_text("Coffe Shops near me")
 print(response)

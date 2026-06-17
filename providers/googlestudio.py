@@ -4,7 +4,7 @@ from google.genai import types
 
 
 config = types.GenerateContentConfig(
-    tools=[types.Tool(google_search=types.GoogleSearch())]
+    tools=[types.Tool(google_search=types.GoogleSearch()), types.Tool(google_maps=types.GoogleMaps())]
 )
 
 class GoogleStudioProvider(LLMProvider):
@@ -26,7 +26,6 @@ class GoogleStudioProvider(LLMProvider):
 
         metadata = response.candidates[0].grounding_metadata
 
-        print("METADATA:", metadata)
         if metadata.web_search_queries:
             print("\nSearch queries executed:")
             for query in metadata.web_search_queries:
@@ -35,7 +34,11 @@ class GoogleStudioProvider(LLMProvider):
         if metadata.grounding_chunks:
             print("\nSources:")
             for chunk in metadata.grounding_chunks:
-                print(f" - [{chunk.web.title}]({chunk.web.uri})")    
+                if chunk.web:
+                    print(f" - [{chunk.web.title}]({chunk.web.uri})")    
+                if chunk.maps:
+                    print(f" - [{chunk.maps.title}]({chunk.maps.uri})")        
+
 
         return content
 
