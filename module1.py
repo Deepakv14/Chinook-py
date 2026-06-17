@@ -50,6 +50,6 @@ llm = LLMFactory.create(
     model="gemini-2.5-flash"
 )    
 
-response = llm.generate_text("Write a short story about a dragon and a knight.")
+response = llm.generate_text("Who won FIFA last edition??")
 
 print(response)
